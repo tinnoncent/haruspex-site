@@ -150,9 +150,35 @@
       h2{font-size:clamp(2.7rem,14vw,4.4rem)}.price{font-size:3.4rem}
     }
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-  </style>
+  
+    .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0 46%,rgba(230,44,19,.05) 50%,transparent 54% 100%);background-size:220% 100%;animation:heroSweep 9s ease-in-out infinite}
+    @keyframes heroSweep{0%,100%{background-position:180% 0}50%{background-position:-80% 0}}
+    .brandmark{animation:sigilBreath 4.8s ease-in-out infinite}
+    @keyframes sigilBreath{0%,100%{filter:drop-shadow(0 0 0 rgba(230,44,19,0));transform:scale(1)}50%{filter:drop-shadow(0 0 12px rgba(230,44,19,.34));transform:scale(1.03)}}
+    .terminal{overflow:hidden;transition:transform .35s ease,box-shadow .35s ease}
+    .terminal::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,rgba(240,223,191,.045) 48%,transparent 52%),repeating-linear-gradient(to bottom,rgba(255,255,255,.018) 0 1px,transparent 1px 4px);background-size:100% 180%,100% 100%;animation:scan 5.5s linear infinite;opacity:.42;mix-blend-mode:screen}
+    @keyframes scan{from{background-position:0 -120%,0 0}to{background-position:0 220%,0 0}}
+    .dots i:nth-child(1){animation:dotBlink 2.8s infinite}.dots i:nth-child(2){animation:dotBlink 2.8s .45s infinite}.dots i:nth-child(3){animation:dotBlink 2.8s .9s infinite}
+    @keyframes dotBlink{0%,72%,100%{background:transparent;box-shadow:none}76%,84%{background:var(--red);box-shadow:0 0 10px rgba(230,44,19,.6)}}
+    .stat{position:relative;overflow:hidden;transition:background .25s ease,transform .25s ease}.stat:hover{background:rgba(230,44,19,.035);transform:translateY(-2px)}
+    .stat::after{content:"";position:absolute;left:-35%;bottom:0;width:34%;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);animation:statSweep 5s linear infinite}.stat:nth-child(2)::after{animation-delay:1.2s}.stat:nth-child(3)::after{animation-delay:2.4s}.stat:nth-child(4)::after{animation-delay:3.6s}
+    @keyframes statSweep{to{left:120%}}
+    .card{transition:transform .3s ease,border-color .3s ease,background .3s ease}.card:hover{transform:translateY(-7px);border-color:var(--line)}
+    .card::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 15%,rgba(240,223,191,.045) 40%,transparent 65%);transform:translateX(-120%);transition:transform .75s ease}.card:hover::before{transform:translateX(120%)}
+    .price-card.featured{position:relative;overflow:hidden}.price-card.featured::before{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(230,44,19,.18);border-radius:50%;right:-70px;top:-90px;animation:orbit 14s linear infinite}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    .btn-primary{position:relative;overflow:hidden}.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.28) 50%,transparent 80%);transform:translateX(-130%);transition:transform .65s ease}.btn-primary:hover::after{transform:translateX(130%)}
+    .ticker-strip{overflow:hidden;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:#080605}
+    .ticker-track{display:flex;width:max-content;gap:52px;padding:12px 0;font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;color:var(--dim);animation:tickerMove 24s linear infinite;white-space:nowrap}.ticker-track span b{color:var(--cream-bright);margin-right:8px}.ticker-track span em{font-style:normal;color:var(--red)}
+    @keyframes tickerMove{to{transform:translateX(-50%)}}
+    .cursor-glow{position:fixed;width:260px;height:260px;border-radius:50%;pointer-events:none;z-index:2;opacity:.12;background:radial-gradient(circle,rgba(230,44,19,.32),transparent 68%);transform:translate(-50%,-50%);mix-blend-mode:screen}
+    @media(max-width:900px){.cursor-glow{display:none}.terminal:hover{transform:none}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.cursor-glow{display:none}}
+
+</style>
 </head>
 <body>
+<div class="cursor-glow" data-cursor-glow aria-hidden="true"></div>
   <header class="header" data-header>
     <div class="wrap navrow">
       <a class="brand" href="#top" aria-label="HARUSPEX home">
@@ -195,6 +221,13 @@
       <div class="stat"><b>LOCAL-FIRST</b><span>Credentials remain yours</span></div>
       <div class="stat"><b>RISK-GATED</b><span>Independent safeguards</span></div>
     </div>
+
+<div class="ticker-strip" aria-label="HARUSPEX system telemetry">
+  <div class="ticker-track">
+    <span><b>MODE</b><em>SIMULATION</em></span><span><b>EXCHANGE</b>KRAKEN SPOT</span><span><b>RISK ENGINE</b>ARMED</span><span><b>HEARTBEAT</b>ONLINE</span><span><b>TELEMETRY</b>LOCAL ONLY</span>
+    <span><b>MODE</b><em>SIMULATION</em></span><span><b>EXCHANGE</b>KRAKEN SPOT</span><span><b>RISK ENGINE</b>ARMED</span><span><b>HEARTBEAT</b>ONLINE</span><span><b>TELEMETRY</b>LOCAL ONLY</span>
+  </div>
+</div>
 
     <section id="system">
       <div class="wrap intro-grid">
@@ -321,6 +354,19 @@
     const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");observer.unobserve(e.target)}}),{threshold:.12});
     document.querySelectorAll(".reveal").forEach(e=>observer.observe(e));
     document.querySelectorAll("[data-year]").forEach(e=>e.textContent=new Date().getFullYear());
-  </script>
+  
+const glow=document.querySelector("[data-cursor-glow]");
+let gx=innerWidth/2,gy=innerHeight/2,tx=gx,ty=gy;
+addEventListener("pointermove",e=>{tx=e.clientX;ty=e.clientY;glow.style.opacity=".12"},{passive:true});
+addEventListener("pointerleave",()=>glow.style.opacity="0");
+(function glide(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.left=gx+"px";glow.style.top=gy+"px";requestAnimationFrame(glide)})();
+const visual=document.querySelector(".hero-visual");
+if(visual&&matchMedia("(pointer:fine)").matches){
+  const terminal=visual.querySelector(".terminal"),mark=visual.querySelector(".watermark");
+  visual.addEventListener("pointermove",e=>{const r=visual.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;terminal.style.transform=`perspective(1200px) rotateY(${-5+x*5}deg) rotateX(${2-y*4}deg) translateY(-2px)`;mark.style.transform=`translate(${x*10}px,${y*8}px)`});
+  visual.addEventListener("pointerleave",()=>{terminal.style.transform="";mark.style.transform=""});
+}
+
+</script>
 </body>
 </html>

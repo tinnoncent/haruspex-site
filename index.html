@@ -194,6 +194,11 @@
 @media(max-width:700px){.micro-grid{grid-template-columns:1fr}.proof-badge{font-size:.58rem}}
 @media(prefers-reduced-motion:reduce){.hero-canvas,.scroll-progress{display:none}}
 
+
+.value-statement{margin:4px 0 22px;padding:16px 18px;border:1px solid var(--line-soft);background:rgba(230,44,19,.035);color:var(--muted);line-height:1.65;font-size:.9rem}
+.value-statement strong{color:var(--cream-bright)}
+.microcopy{margin:14px 0 0;text-align:center;color:var(--dim);font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase}
+
 </style>
 </head>
 <body>
@@ -326,41 +331,54 @@
     </section>
 
     <section id="editions">
-      <div class="wrap">
-        <div class="pricing-head reveal">
-          <div class="eyebrow">Purchase</div>
-          <h2>HARUSPEX. $99 once.</h2>
-          <p>No subscription, cloud account, telemetry, or recurring billing. Download the current release and run it on your own hardware.</p>
+  <div class="wrap">
+    <div class="pricing-head reveal">
+      <div class="eyebrow">Purchase</div>
+      <h2>Own HARUSPEX.</h2>
+      <p>Professional cryptocurrency research and execution software. One purchase. No subscription. Local-first. Built for disciplined operators.</p>
+    </div>
+    <div class="pricing">
+      <article class="price-card featured reveal">
+        <span class="tier">HARUSPEX 1.0 · FIRST COMMERCIAL RELEASE</span>
+        <div class="price"><small>$</small>300</div>
+        <div class="price-note">Professional Edition · One-time purchase</div>
+        <ul>
+          <li>Complete desktop application</li>
+          <li>Professional Windows installer</li>
+          <li>Simulation mode</li>
+          <li>Paper trading with Kraken market data</li>
+          <li>Gated Kraken Spot execution</li>
+          <li>Probability Lattice dashboard</li>
+          <li>Independent risk engine and circuit breakers</li>
+          <li>Backtesting and walk-forward analysis</li>
+          <li>37-page User Manual and Quick Start Guide</li>
+          <li>Local-first architecture with no hidden telemetry</li>
+          <li>Lifetime access to the purchased version</li>
+        </ul>
+        <div class="value-statement">
+          <strong>Built for serious operators.</strong><br>
+          Buy it once. Install it locally. Own your software.
         </div>
-        <div class="pricing">
-          <article class="price-card featured reveal">
-            <span class="tier">HARUSPEX 1.0</span>
-            <div class="price"><small>$</small>99</div>
-            <div class="price-note">One-time software license</div>
-            <ul>
-              <li>Simulation and Kraken-data paper modes</li>
-              <li>Gated Kraken Spot live execution</li>
-              <li>Regime-aware strategy framework</li>
-              <li>Independent risk layer and circuit breakers</li>
-              <li>Backtesting and walk-forward analysis</li>
-              <li>Probability Lattice dashboard</li>
-              <li>Windows, macOS/Linux, Docker, and Raspberry Pi tooling</li>
-              <li>37-page manual, Quick Start, and diagnostic workflow</li>
-            </ul>
-            <a class="btn btn-primary" data-gumroad-tier="haruspex" href="#">Purchase HARUSPEX <span class="arrow">→</span></a>
-          </article>
-        </div>
-<div class="trust-row reveal">
-  <span>No subscription</span><span>No cloud account</span><span>No telemetry</span><span>Local credentials</span>
-</div>
-<div class="disclosure reveal">
-          <strong>Important:</strong> HARUSPEX is research and execution software—not an investment product, managed service, or promise of profit.
-          The included strategy has no claimed edge. Simulation and backtested results do not predict live results.
-          Kraken Spot only: no margin, futures, leverage, or short selling. Documentation is included; trading advice,
-          strategy tuning, exchange account support, and ongoing technical support are not.
-        </div>
-      </div>
-    </section>
+        <a class="btn btn-primary" data-gumroad-tier="haruspex" href="#">
+          Purchase HARUSPEX — $300 <span class="arrow">→</span>
+        </a>
+        <p class="microcopy">Secure checkout • Instant download • Documentation included</p>
+      </article>
+    </div>
+    <div class="trust-row reveal">
+      <span>No subscription</span>
+      <span>No cloud account</span>
+      <span>No telemetry</span>
+      <span>Local credentials</span>
+    </div>
+    <div class="disclosure reveal">
+      <strong>Important:</strong> HARUSPEX is research and execution software—not an investment product, managed service, or promise of profit.
+      The included strategy has no claimed edge. Simulation and backtested results do not predict live results.
+      Kraken Spot only: no margin, futures, leverage, or short selling. Documentation is included; trading advice,
+      strategy tuning, exchange account support, and ongoing technical support are not.
+    </div>
+  </div>
+</section>
 
     <section id="roadmap">
       <div class="wrap roadmap">

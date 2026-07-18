@@ -126,7 +126,7 @@
     .footer-copy{color:var(--dim);font-family:var(--mono);font-size:.66rem;letter-spacing:.08em}
     .footer-links{display:flex;gap:20px;color:var(--muted);font-family:var(--mono);font-size:.66rem;text-transform:uppercase}
     .sticky-buy{display:none;position:fixed;z-index:40;right:18px;bottom:18px;background:var(--red);color:#080605;padding:15px 18px;font-family:var(--mono);font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 14px 45px rgba(0,0,0,.45)}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+    .reveal{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
     .reveal.on{opacity:1;transform:none}
     @media(max-width:900px){
       .wrap{width:min(100% - 30px,var(--max))}
@@ -187,7 +187,7 @@
 .micro b{display:block;font-size:.92rem;color:var(--cream-bright);margin-bottom:4px}
 .micro span{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .num{font-variant-numeric:tabular-nums}
-.section-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);transform:scaleX(.2);opacity:.4;transition:transform .9s ease,opacity .9s ease}
+.section-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);transform:scaleX(1);opacity:1;transition:transform .9s ease,opacity .9s ease}
 .section-rule.on{transform:scaleX(1);opacity:1}
 .btn{will-change:transform}.btn .arrow{display:inline-block;margin-left:10px;transition:transform .2s ease}.btn:hover .arrow{transform:translateX(4px)}
 .trust-row{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:22px;color:var(--dim);font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase}
@@ -224,6 +224,7 @@
 </style>
 </head>
 <body>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.section-rule{transform:scaleX(1)!important;opacity:1!important}</style></noscript>
 <div class="scroll-progress" data-scroll-progress=""></div>
 <div aria-hidden="true" class="cursor-glow" data-cursor-glow=""></div>
 <header class="header" data-header="">
@@ -364,9 +365,9 @@
   
 const glow=document.querySelector("[data-cursor-glow]");
 let gx=innerWidth/2,gy=innerHeight/2,tx=gx,ty=gy;
-addEventListener("pointermove",e=>{tx=e.clientX;ty=e.clientY;glow.style.opacity=".12"},{passive:true});
-addEventListener("pointerleave",()=>glow.style.opacity="0");
-(function glide(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.left=gx+"px";glow.style.top=gy+"px";requestAnimationFrame(glide)})();
+addEventListener("pointermove",e=>{tx=e.clientX;ty=e.clientY;if(glow)glow.style.opacity=".12"},{passive:true});
+addEventListener("pointerleave",()=>{if(glow)glow.style.opacity="0"});
+(function glide(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;if(glow){glow.style.left=gx+"px";glow.style.top=gy+"px";}requestAnimationFrame(glide)})();
 const visual=document.querySelector(".hero-visual");
 if(visual&&matchMedia("(pointer:fine)").matches){
   const terminal=visual.querySelector(".terminal"),mark=visual.querySelector(".watermark");
@@ -376,7 +377,7 @@ if(visual&&matchMedia("(pointer:fine)").matches){
 
 
 const progress=document.querySelector("[data-scroll-progress]");
-const updateProgress=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?(scrollY/max)*100:0)+"%";};
+const updateProgress=()=>{const max=document.documentElement.scrollHeight-innerHeight;if(progress)progress.style.width=(max>0?(scrollY/max)*100:0)+"%";};
 addEventListener("scroll",updateProgress,{passive:true});updateProgress();
 
 const countObs=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target,target=Number(el.dataset.count),start=performance.now(),dur=900;const tick=now=>{const p=Math.min(1,(now-start)/dur),e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e);if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);countObs.unobserve(el);}),{threshold:.7});
